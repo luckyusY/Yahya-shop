@@ -3,57 +3,590 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index Page</title>
+    <title>Yahya Farm</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.12.0/toastify.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+        
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .index-container {
-            background-color: #fff;
-            padding: 40px;
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0f0c29;
+            background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            margin: 0;
+            color: white;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .logo:hover {
+            opacity: 0.8;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
             border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding-top: 80px;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 100px 5%;
+            background: url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854') center/cover;
+            position: relative;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: left;
+            z-index: 1;
+        }
+
+        .hero-container h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            line-height: 1.2;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 3rem;
+            max-width: 600px;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 100px 5%;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2.5rem;
+            border-radius: 20px;
+            transition: transform 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #71b280;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Products Section */
+        .products-section {
+            padding: 100px 5%;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
             text-align: center;
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
         }
-        h1 {
-            font-size: 36px;
-            color: #333;
+
+        .section-subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 3rem;
         }
-        p {
-            font-size: 16px;
-            color: #555;
-            margin-bottom: 30px;
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        .btn {
-            padding: 15px 30px;
-            font-size: 18px;
-            color: #fff;
-            background-color: #1877f2;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
         }
-        .btn:hover {
-            background-color: #166fe5;
+
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .product-image {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 2rem;
+        }
+
+        .product-price {
+            color: #71b280;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 100px 5%;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2.5rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-image img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .cta-btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .primary-btn {
+            background: #71b280;
+            color: white;
+        }
+
+        .secondary-btn {
+            background: transparent;
+            color: white;
+            border: 2px solid #71b280;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+            
+            .hero-container h1 {
+                font-size: 3rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .features-grid,
+            .product-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Footer Styles */
+        footer {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 4rem 5%;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .footer-brand {
+            max-width: 400px;
+        }
+
+        .footer-brand p {
+            margin: 1rem 0;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        .contact-info {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .contact-info li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.8rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #71b280;
+            transform: translateY(-3px);
+        }
+
+        .footer-section h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section ul a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-section ul a:hover {
+            color: #71b280;
+            padding-left: 5px;
+        }
+
+        @media (max-width: 992px) {
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .footer-brand {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
+    <header>
+        <a href="index.html" class="logo">Yahya Farm</a>
+        <nav>
+            <a href="about.html">About</a>
+            <a href="products.html">Products</a>
+            <a href="farmers.html">Farmers</a>
+            <a href="login.html">Login</a>
+            <a href="register.html">Register</a>
+        </nav>
+    </header>
 
-    <div class="index-container">
-        <h1>Welcome to Our Platform</h1>
-        <p>New here? Create an account or login to access the services.</p>
-        <a href="register.html"><button class="btn">Register</button></a>
-        <br><br>
-        <a href="login.html"><button class="btn">Login</button></a>
-    </div>
+    <main>
+        <section class="hero-section">
+            <div class="hero-container">
+                <h1>Fresh From Farm<br>To Your Table</h1>
+                <p class="tagline">Experience the finest organic produce directly from local farmers. Supporting sustainable agriculture and healthy living.</p>
+                <div class="cta-buttons">
+                    <a href="register.html" class="cta-btn primary-btn">Start Growing</a>
+                    <a href="login.html" class="cta-btn secondary-btn">Explore Products</a>
+                </div>
+            </div>
+        </section>
 
+        <section class="features-section">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-leaf feature-icon"></i>
+                    <h3>100% Organic</h3>
+                    <p>All our products are certified organic, grown without harmful pesticides or chemicals</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-truck feature-icon"></i>
+                    <h3>Farm Fresh Delivery</h3>
+                    <p>Get your products delivered fresh within 24 hours of harvesting</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-users feature-icon"></i>
+                    <h3>Support Local Farmers</h3>
+                    <p>Direct partnership with local farmers ensures fair prices and sustainable practices</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="products-section">
+            <h2 class="section-title">Featured Products</h2>
+            <p class="section-subtitle">From our farms to your kitchen</p>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1566842600175-97dca489844f" alt="Organic Vegetables">
+                    </div>
+                    <div class="product-info">
+                        <h4>Organic Vegetables</h4>
+                        <p>Fresh, seasonal vegetables harvested daily</p>
+                        <span class="product-price">From $4.99/kg</span>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1471194402529-8e0f5a675de6" alt="Fresh Fruits">
+                    </div>
+                    <div class="product-info">
+                        <h4>Fresh Fruits</h4>
+                        <p>Sweet and juicy seasonal fruits</p>
+                        <span class="product-price">From $5.99/kg</span>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1509223197845-458d87318791" alt="Dairy Products">
+                    </div>
+                    <div class="product-info">
+                        <h4>Dairy Products</h4>
+                        <p>Fresh milk, cheese, and more</p>
+                        <span class="product-price">From $3.99</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials-section">
+            <h2 class="section-title">What Our Community Says</h2>
+            <p class="section-subtitle">Real stories from real people</p>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"The quality and freshness of produce from Yahya Farm is unmatched. It's transformed how my family eats."</p>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80" alt="Sarah Johnson">
+                        </div>
+                        <div class="author-info">
+                            <h5>Sarah Johnson</h5>
+                            <p>Happy Customer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"As a farmer, this platform has given me the opportunity to reach more customers and grow my business sustainably."</p>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e" alt="John Smith">
+                        </div>
+                        <div class="author-info">
+                            <h5>John Smith</h5>
+                            <p>Partner Farmer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">Yahya Farm</a>
+                <p>Connecting farmers and consumers for a sustainable future. Experience the freshness of local produce delivered to your doorstep.</p>
+                <ul class="contact-info">
+                    <li><i class="fas fa-phone"></i> +250789448107</li>
+                    <li><i class="fas fa-envelope"></i> nkundimanarugirayahaya@gmail.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Kigali, Rwanda</li>
+                </ul>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/250789448107" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Explore</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#sustainability">Sustainability</a></li>
+                    <li><a href="#blog">Farm Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>For Farmers</h4>
+                <ul>
+                    <li><a href="#become-partner">Become a Partner</a></li>
+                    <li><a href="#farmer-resources">Farmer Resources</a></li>
+                    <li><a href="#success-stories">Success Stories</a></li>
+                    <li><a href="#farm-support">Farm Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Customer Care</h4>
+                <ul>
+                    <li><a href="#faq">FAQs</a></li>
+                    <li><a href="#delivery-info">Delivery Information</a></li>
+                    <li><a href="#quality-promise">Quality Promise</a></li>
+                    <li><a href="#contact">Contact Support</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
